@@ -7,7 +7,7 @@ from ..agents.image_analyzer import ImageAnalyzerAgent
 from ..agents.metadata_extractor import MetadataExtractorAgent
 from ..agents.reverse_search import ReverseSearchAgent
 from ..agents.geolocator import GeolocatorAgent
-# from ..agents.face_recognition_agent import FaceRecognitionAgent
+from ..agents.face_recognition_agent import FaceRecognitionAgent
 from ..agents.report_generator import ReportGeneratorAgent
 from ..models.schemas import OSINTResult, ImageAnalysis, MetadataInfo, GeolocationInfo, FaceRecognitionResult
 from ..config import settings
@@ -44,7 +44,7 @@ class OSINTWorkflow:
         self.metadata_extractor = MetadataExtractorAgent()
         self.reverse_search_agent = ReverseSearchAgent()
         self.geolocator = GeolocatorAgent(self.llm)
-        # self.face_recognition_agent = FaceRecognitionAgent()
+        self.face_recognition_agent = FaceRecognitionAgent()
         self.report_generator = ReportGeneratorAgent(self.llm)
     
     def setup_workflow(self):
