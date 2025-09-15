@@ -1,0 +1,36 @@
+{
+  "audit_records": [
+    {
+      "timestamp": "2025-09-15T18:27:31.300747",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "who is that guy",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-15T18:37:02.712054",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "find faces ages and emotions",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-15T19:05:56.870187",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "find faces ages and emotions",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-15T19:09:16.586569",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "find faces ages and emotions",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
+    }
+  ]
+}
