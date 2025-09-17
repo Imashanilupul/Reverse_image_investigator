@@ -47,6 +47,30 @@
       "purpose": "find this person emotion",
       "ip_address": "127.0.0.1",
       "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-17T11:45:23.842187",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "find this from google",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-17T11:50:32.096289",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "string",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-17T11:53:50.093859",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "string",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
     }
   ]
 }
