@@ -71,6 +71,14 @@
       "purpose": "string",
       "ip_address": "127.0.0.1",
       "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-17T13:49:27.619831",
+      "action": "face_recognition_performed",
+      "user_id": "user_1758097166848_0u91vkrxe",
+      "purpose": "for find details about hi,",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
     }
   ]
 }

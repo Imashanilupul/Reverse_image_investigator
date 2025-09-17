@@ -1,1 +1,24 @@
-{"consents": [], "version": "1.0"}
+{
+  "consents": [
+    {
+      "consent_id": "c416c251120d0f4c",
+      "user_id": "user_1758097166848_0u91vkrxe",
+      "full_name": "Imasha",
+      "email": "jayarathnekain.22@uom.lk",
+      "purpose": "for find details about hi,",
+      "consent_types": [
+        "face_detection",
+        "demographic_analysis",
+        "emotion_analysis"
+      ],
+      "duration_days": 30,
+      "timestamp": "2025-09-17T13:49:27.522282",
+      "expires_at": "2025-10-17T13:49:27.522282",
+      "ip_address": null,
+      "user_agent": null,
+      "agreed_to_terms": true,
+      "revoked": false
+    }
+  ],
+  "version": "1.0"
+}

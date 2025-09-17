@@ -29,9 +29,22 @@ class ReverseSearchAgent:
     
     async def _search_google_images(self, image_path: str) -> List[Dict]:
         """Search Google Images (placeholder implementation)"""
+        #IMAGE path to URL conversion 
+        #upload to imgbb
+        def upload_image(image_path):
+            with open(image_path, "rb") as file:
+                url = "https://api.imgbb.com/1/upload"
+                payload = {
+                    "key": '00476c17004cccba9f22cbbc2aca3c4f',
+                }
+                response = requests.post(url, payload, files={"image": file})
+                return response.json()
+        image_url = upload_image(image_path)
+
+        
         conn = http.client.HTTPSConnection("google.serper.dev")
         payload = json.dumps({
-            "url": image_path
+            "url": image_url["data"]["url"]
         })
         headers = {
             'X-API-KEY': '63254f8be49158aeafef96be85d0b01d40284a39',
