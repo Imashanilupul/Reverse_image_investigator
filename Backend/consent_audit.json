@@ -31,6 +31,22 @@
       "purpose": "find faces ages and emotions",
       "ip_address": "127.0.0.1",
       "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-15T19:16:46.545720",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "find ages and gender of these people",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
+    },
+    {
+      "timestamp": "2025-09-17T10:39:13.602978",
+      "action": "face_recognition_performed",
+      "user_id": "string",
+      "purpose": "find this person emotion",
+      "ip_address": "127.0.0.1",
+      "consent_verified": true
     }
   ]
 }
