@@ -36,13 +36,6 @@ const GeolocationDisplay = ({ geolocation }) => {
     return 'Low';
   };
 
-  const openInGoogleMaps = () => {
-    if (hasCoordinates) {
-      const url = `https://www.google.com/maps?q=${geolocation.latitude},${geolocation.longitude}`;
-      window.open(url, '_blank');
-    }
-  };
-
   const openInOpenStreetMap = () => {
     if (hasCoordinates) {
       const url = `https://www.openstreetmap.org/?mlat=${geolocation.latitude}&mlon=${geolocation.longitude}&zoom=15`;
@@ -107,7 +100,7 @@ const GeolocationDisplay = ({ geolocation }) => {
               {geolocation.confidence !== undefined && (
                 <ListItem>
                   <ListItemIcon>
-                    <Confidence />
+                    <LocationOn />
                   </ListItemIcon>
                   <ListItemText
                     primary="Confidence Level"
@@ -126,15 +119,7 @@ const GeolocationDisplay = ({ geolocation }) => {
             </List>
 
             {hasCoordinates && (
-              <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  startIcon={<OpenInNew />}
-                  onClick={openInGoogleMaps}
-                >
-                  View in Google Maps
-                </Button>
+              <Box sx={{ mt: 2 }}>
                 <Button
                   variant="outlined"
                   size="small"

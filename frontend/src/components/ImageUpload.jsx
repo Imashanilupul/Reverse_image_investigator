@@ -1,42 +1,60 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import {
-  Paper,
-  Typography,
   Box,
-  Button,
-  CircularProgress,
-  FormControlLabel,
-  Switch,
-  TextField,
-  Alert,
+  Typography,
   Card,
   CardContent,
-  LinearProgress
+  Switch,
+  FormControlLabel,
+  Button,
+  LinearProgress,
+  Stepper,
+  Step,
+  StepLabel,
+  CircularProgress
 } from '@mui/material';
-import { CloudUpload, Image as ImageIcon, Security } from '@mui/icons-material';
-import ConsentModal from './ConsentModal';
-import { validateConsent } from '../services/api';
+import { CloudUpload, Image as ImageIcon } from '@mui/icons-material';
 
 const ImageUpload = ({ onImageUpload, loading }) => {
   const [enableFaceRecognition, setEnableFaceRecognition] = useState(false);
   const [showConsentModal, setShowConsentModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [consentData, setConsentData] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [analysisStep, setAnalysisStep] = useState(0);
+  const [analysisSteps] = useState([
+    'Uploading Image',
+    'Analyzing Content',
+    'Extracting Metadata',
+    'Face Recognition',
+    'Reverse Image Search',
+    'Geolocation Analysis',
+    'Generating Report'
+  ]);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0];
-    if (file) {
-      setSelectedFile(file);
-      
-      if (enableFaceRecognition) {
-        setShowConsentModal(true);
-      } else {
-        handleAnalysis(file, false, null);
-      }
+  // Mock function to simulate step progression
+  const simulateAnalysisProgress = async () => {
+    for (let i = 0; i < analysisSteps.length; i++) {
+      setAnalysisStep(i);
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate processing time
     }
-  }, [enableFaceRecognition]);
+  };
+
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      if (acceptedFiles.length > 0) {
+        const file = acceptedFiles[0];
+        setSelectedFile(file);
+
+        if (enableFaceRecognition) {
+          setShowConsentModal(true);
+        } else {
+          handleAnalysis(file, false, null);
+        }
+      }
+    },
+    [enableFaceRecognition]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -45,41 +63,30 @@ const ImageUpload = ({ onImageUpload, loading }) => {
     },
     multiple: false,
     disabled: loading,
-    maxSize: 10 * 1024 * 1024 // 10MB
+    maxSize: 10 * 1024 * 1024
   });
 
   const handleConsent = async (consentFormData) => {
-    try {
-      const consentResult = await validateConsent(consentFormData);
-      if (consentResult.valid) {
-        setConsentData(consentResult);
-        setShowConsentModal(false);
-        
-        if (selectedFile) {
-          handleAnalysis(selectedFile, true, consentFormData);
-        }
-      }
-    } catch (error) {
-      console.error('Consent validation failed:', error);
-    }
+    setConsentData(consentFormData);
+    setShowConsentModal(false);
+    handleAnalysis(selectedFile, true, consentFormData);
   };
 
-  const handleAnalysis = (file, faceRecognitionEnabled, consent) => {
-    const options = {
-      enableFaceRecognition: faceRecognitionEnabled,
-      consentProvided: !!consent,
-      analysisPurpose: consent?.purpose,
-      userId: consent?.user_id
-    };
-    
-    onImageUpload(file, options);
+  const handleAnalysis = async (file, faceRecognitionEnabled, consent) => {
+    setAnalysisStep(0);
+
+    // Start the progress simulation
+    simulateAnalysisProgress();
+
+    // Call the actual analysis function
+    await onImageUpload(file, faceRecognitionEnabled, consent);
+
+    // Reset step after completion
+    setAnalysisStep(0);
   };
 
   const handleFaceRecognitionToggle = (event) => {
     setEnableFaceRecognition(event.target.checked);
-    if (!event.target.checked) {
-      setConsentData(null);
-    }
   };
 
   const formatFileSize = (bytes) => {
@@ -91,106 +98,134 @@ const ImageUpload = ({ onImageUpload, loading }) => {
   };
 
   return (
-    <>
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Analysis Options
-        </Typography>
-        
-        <FormControlLabel
-          control={
-            <Switch
-              checked={enableFaceRecognition}
-              onChange={handleFaceRecognitionToggle}
-              disabled={loading}
-              color="secondary"
-            />
-          }
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Security sx={{ mr: 1 }} />
-              Enable Face Recognition Analysis
+    <Box sx={{ width: '100%', maxWidth: 600, mx: 'auto', p: 2 }}>
+      <Card elevation={3}>
+        <CardContent>
+          <Typography variant="h5" component="h2" gutterBottom align="center">
+            Image Upload & Analysis
+          </Typography>
+
+          {/* Analysis Progress Stepper */}
+          {loading && (
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" gutterBottom align="center">
+                Analyzing Image...
+              </Typography>
+
+              <Stepper activeStep={analysisStep} alternativeLabel>
+                {analysisSteps.map((label, index) => (
+                  <Step key={label}>
+                    <StepLabel
+                      StepIconComponent={() => (
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          {index === analysisStep ? (
+                            <CircularProgress size={24} />
+                          ) : index < analysisStep ? (
+                            <Box
+                              sx={{
+                                width: 24,
+                                height: 24,
+                                borderRadius: '50%',
+                                backgroundColor: 'success.main',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white'
+                              }}
+                            >
+                              ✓
+                            </Box>
+                          ) : (
+                            <Box
+                              sx={{
+                                width: 24,
+                                height: 24,
+                                borderRadius: '50%',
+                                backgroundColor: 'grey.300'
+                              }}
+                            />
+                          )}
+                        </Box>
+                      )}
+                    >
+                      {label}
+                    </StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+
+              <LinearProgress
+                variant="determinate"
+                value={(analysisStep / (analysisSteps.length - 1)) * 100}
+                sx={{ mt: 2 }}
+              />
+
+              <Typography variant="body2" align="center" sx={{ mt: 1 }}>
+                Step {analysisStep + 1} of {analysisSteps.length}: {analysisSteps[analysisStep]}
+              </Typography>
             </Box>
-          }
-        />
-        
-        {enableFaceRecognition && (
-          <Alert severity="warning" sx={{ mt: 1 }}>
-            Face recognition analysis requires explicit consent and should only be used for 
-            legitimate purposes such as security, research, or investigation.
-          </Alert>
-        )}
-        
-        {consentData && (
-          <Alert severity="success" sx={{ mt: 1 }}>
-            ✓ Consent provided and validated. Face recognition analysis will be included.
-          </Alert>
-        )}
-      </Box>
+          )}
 
-      {selectedFile && !loading && (
-        <Card sx={{ mb: 2 }}>
-          <CardContent>
-            <Typography variant="subtitle1">Selected File:</Typography>
-            <Typography variant="body2" color="text.secondary">
-              {selectedFile.name} ({formatFileSize(selectedFile.size)})
-            </Typography>
-          </CardContent>
-        </Card>
-      )}
+          {/* File Upload Area */}
+          {!loading && (
+            <Box
+              {...getRootProps()}
+              sx={{
+                border: '2px dashed',
+                borderColor: isDragActive ? 'primary.main' : 'grey.300',
+                borderRadius: 2,
+                p: 4,
+                textAlign: 'center',
+                cursor: 'pointer',
+                backgroundColor: isDragActive ? 'action.hover' : 'background.paper',
+                transition: 'all 0.2s ease-in-out',
+                '&:hover': {
+                  borderColor: 'primary.main',
+                  backgroundColor: 'action.hover'
+                }
+              }}
+            >
+              <input {...getInputProps()} />
+              <CloudUpload sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
 
-      <Paper
-        {...getRootProps()}
-        sx={{
-          border: '2px dashed',
-          borderColor: isDragActive ? 'primary.main' : 'grey.300',
-          borderRadius: 2,
-          p: 6,
-          textAlign: 'center',
-          cursor: loading ? 'not-allowed' : 'pointer',
-          bgcolor: isDragActive ? 'action.hover' : 'background.paper',
-          transition: 'all 0.2s ease-in-out',
-          '&:hover': {
-            borderColor: loading ? 'grey.300' : 'primary.main',
-            bgcolor: loading ? 'background.paper' : 'action.hover'
-          }
-        }}
-      >
-        <input {...getInputProps()} />
-        
-        {loading ? (
-          <Box>
-            <CircularProgress size={48} sx={{ mb: 2 }} />
-            <Typography variant="h6" gutterBottom>
-              Analyzing Image...
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              This may take a few minutes depending on the complexity of the analysis
-            </Typography>
-            <LinearProgress sx={{ width: '100%', maxWidth: 400, mx: 'auto' }} />
-          </Box>
-        ) : (
-          <Box>
-            <CloudUpload sx={{ fontSize: 64, color: 'primary.main', mb: 2 }} />
-            <Typography variant="h6" gutterBottom>
-              {isDragActive ? 'Drop the image here' : 'Drag & drop an image here'}
-            </Typography>
-            <Typography variant="body1" color="primary" sx={{ mb: 1 }}>
-              or click to select a file
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Supported formats: JPEG, PNG, GIF, BMP, WebP (Max: 10MB)
-            </Typography>
-          </Box>
-        )}
-      </Paper>
+              {isDragActive ? (
+                <Typography variant="h6" color="primary">
+                  Drop the image here...
+                </Typography>
+              ) : (
+                <>
+                  <Typography variant="h6" gutterBottom>
+                    Drag & drop an image here, or click to select
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Supported formats: JPEG, PNG, GIF, BMP, WebP (Max: 10MB)
+                  </Typography>
+                </>
+              )}
+            </Box>
+          )}
 
-      <ConsentModal
-        open={showConsentModal}
-        onClose={() => setShowConsentModal(false)}
-        onConsent={handleConsent}
-      />
-    </>
+          {/* Face Recognition Toggle */}
+          {!loading && (
+            <Box sx={{ mt: 3 }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={enableFaceRecognition}
+                    onChange={handleFaceRecognitionToggle}
+                    color="primary"
+                  />
+                }
+                label="Enable Face Recognition Analysis"
+              />
+              <Typography variant="caption" display="block" color="text.secondary">
+                Requires additional consent for privacy compliance
+              </Typography>
+            </Box>
+          )}
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 
