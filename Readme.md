@@ -16,16 +16,21 @@ An advanced Image OSINT (Open Source Intelligence) Analysis Tool powered by a mu
 ## 🏗️ Architecture
 
 ### Backend (Python + FastAPI)
-- **Multi-Agent System**: Specialized agents for different analysis tasks
-- **LangGraph Workflow**: Orchestrates the analysis pipeline
-- **Privacy-First**: Consent management and audit trails
-- **Async Processing**: Non-blocking analysis operations
+- **Multi-Agent System**: Specialized agents for different analysis tasks  
+- **LangGraph Workflow**: Orchestrates the analysis pipeline  
+- **Privacy-First**: Consent management and audit trails  
+- **Async Processing**: Non-blocking analysis operations  
 
 ### Frontend (React + Vite)
-- **Modern UI**: Material-UI components with responsive design
-- **Interactive Maps**: Leaflet integration for geolocation display
-- **Progress Tracking**: Real-time analysis step visualization
-- **File Upload**: Drag-and-drop image upload with validation
+- **Modern UI**: Material-UI components with responsive design  
+- **Interactive Maps**: Leaflet integration for geolocation display  
+- **Progress Tracking**: Real-time analysis step visualization  
+- **File Upload**: Drag-and-drop image upload with validation  
+
+### 🖼️ Multi-Agent Architecture
+
+![Multi-Agent Architecture](./Documents/Image_investigator_Agent_Diagram.png)
+
 
 ## 📋 Prerequisites
 
