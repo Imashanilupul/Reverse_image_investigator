@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph, END
 from langchain_google_genai import ChatGoogleGenerativeAI
-from typing import TypedDict, List
+from typing import TypedDict
 import time
 import logging
 from ..agents.image_analyzer import ImageAnalyzerAgent
@@ -10,7 +10,7 @@ from ..agents.geolocator import GeolocatorAgent
 from ..agents.face_recognition_agent import FaceRecognitionAgent
 from ..agents.report_generator import ReportGeneratorAgent
 from ..models.schemas import OSINTResult, ImageAnalysis, MetadataInfo, GeolocationInfo, FaceRecognitionResult
-from ..config import settings
+from ..config.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ class OSINTWorkflow:
             model="gemini-2.5-flash",
             temperature=0,
             convert_system_message_to_human=True,
-            api_key="AIzaSyDZxIlGDZgu7jiBJJaTa_6B1-n8zMHq7Wk"
+            api_key="" or settings.GOOGLE_API_KEY
         )
         self.setup_agents()
         self.setup_workflow()

@@ -173,51 +173,72 @@ const AnalysisResults = ({ results }) => {
       </TabPanel>
 
       <TabPanel value={tabValue} index={3}>
-        <Card>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Reverse Search Results
-            </Typography>
-            {results.reverse_search_results.length > 0 ? (
-              <List>
-                {results.reverse_search_results.map((result, index) => (
-                  <ListItem key={index} divider>
-                    <ListItemIcon>
-                      <Search />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={result.title || 'Untitled'}
-                      secondary={
-                        <Box>
-                          <Typography variant="body2" color="text.secondary">
-                            Source: {result.source}
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            URL: {result.url}
-                          </Typography>
-                          {result.similarity_score && (
-                            <Chip 
-                              label={`${(result.similarity_score * 100).toFixed(1)}% similar`}
-                              size="small"
-                              color="primary"
-                              sx={{ mt: 1 }}
-                            />
-                          )}
-                        </Box>
-                      }
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <Alert severity="info">
-                No reverse search results found. This could indicate the image is unique 
-                or not widely distributed online.
-              </Alert>
-            )}
-          </CardContent>
-        </Card>
-      </TabPanel>
+  <Card>
+    <CardContent>
+      <Typography variant="h6" gutterBottom>
+        Reverse Search Results
+      </Typography>
+      {results.reverse_search_results.length > 0 ? (
+        <List>
+          {results.reverse_search_results.map((result, index) => (
+            <ListItem key={index} divider>
+              <ListItemIcon>
+                <Search />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography
+                    component="a"
+                    href={result.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ 
+                      textDecoration: "none", 
+                      color: "primary.main", 
+                      "&:hover": { textDecoration: "underline" } 
+                    }}
+                  >
+                    {result.title || "Untitled"}
+                  </Typography>
+                }
+                secondary={
+                  <Box>
+                    <Typography variant="body2" color="text.secondary">
+                      Source: {result.source}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      component="a"
+                      href={result.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        display: "block",
+                        color: "secondary.main",
+                        textDecoration: "none",
+                        "&:hover": { textDecoration: "underline" },
+                      }}
+                    >
+                      {result.url}
+                    </Typography>
+                    
+                  </Box>
+                }
+              />
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <Alert severity="info">
+          No reverse search results found. This could indicate the image is
+          unique or not widely distributed online.
+        </Alert>
+      )}
+    </CardContent>
+  </Card>
+</TabPanel>
+
 
       <TabPanel value={tabValue} index={4}>
         <ReportView 

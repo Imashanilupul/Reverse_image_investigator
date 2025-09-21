@@ -4,6 +4,7 @@ from typing import List, Dict
 from ..models.schemas import ReverseSearchResult
 import http.client
 import json
+from ..config.settings import settings
 
 
 logger = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ class ReverseSearchAgent:
             with open(image_path, "rb") as file:
                 url = "https://api.imgbb.com/1/upload"
                 payload = {
-                    "key": '00476c17004cccba9f22cbbc2aca3c4f',
+                    "key": settings.IMG_BB_API_KEY,
                 }
                 response = requests.post(url, payload, files={"image": file})
                 return response.json()
@@ -47,7 +48,7 @@ class ReverseSearchAgent:
             "url": image_url["data"]["url"]
         })
         headers = {
-            'X-API-KEY': '63254f8be49158aeafef96be85d0b01d40284a39',
+            'X-API-KEY': settings.SERP_API_KEY,
             'Content-Type': 'application/json'
         }
         conn.request("POST", "/lens", payload, headers)

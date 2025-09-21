@@ -30,88 +30,130 @@ function App() {
   };
 
   return (
-    <Container 
-      maxWidth="lg" 
-      sx={{ py: { xs: 2, sm: 3, md: 4 }, px: { xs: 2, sm: 3 } }}
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        bgcolor: 'linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%)',
+      }}
     >
-      {/* Title */}
-      <Typography 
-        variant="h4" 
-        component="h1" 
-        gutterBottom 
-        align="center"
-        sx={{ 
-          fontSize: { xs: '1.6rem', sm: '2rem', md: '2.5rem' },
-          fontWeight: 600 
+      {/* Main content container */}
+      <Container
+        maxWidth="xl"
+        sx={{
+          flexGrow: 1,
+          py: { xs: 3, sm: 4, md: 6 },
+          px: { xs: 2, sm: 3, md: 6 },
         }}
       >
-        Image OSINT Analysis Tool
-      </Typography>
-      
-      <Typography 
-        variant="body1" 
-        align="center" 
-        color="text.secondary" 
-        sx={{ mb: { xs: 2, sm: 3, md: 4 }, fontSize: { xs: '0.9rem', md: '1rem' } }}
-      >
-        Advanced image analysis with multi-agent AI system including optional face recognition
-      </Typography>
-      
-      {/* Upload Section */}
-      <Paper 
-        elevation={3} 
-        sx={{ 
-          p: { xs: 2, sm: 3 }, 
-          mb: { xs: 2, sm: 3, md: 4 } 
-        }}
-      >
-        <ImageUpload 
-          onImageUpload={handleImageUpload}
-          loading={loading}
-        />
-      </Paper>
+        {/* Title */}
+        <Box textAlign="center" mb={{ xs: 3, sm: 5 }}>
+          <Typography
+            variant="h3"
+            component="h1"
+            gutterBottom
+            sx={{
+              fontSize: { xs: '1.8rem', sm: '2.4rem', md: '3rem' },
+              fontWeight: 700,
+              color: 'primary.main',
+            }}
+          >
+            Image OSINT Analysis Tool
+          </Typography>
 
-      {/* Error Handling */}
-      {error && (
-        <Paper 
-          elevation={2} 
-          sx={{ 
-            p: { xs: 1.5, sm: 2 }, 
-            mb: { xs: 2, sm: 3 }, 
-            bgcolor: 'error.light' 
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{
+              maxWidth: '650px',
+              mx: 'auto',
+              fontSize: { xs: '0.9rem', md: '1.05rem' },
+            }}
+          >
+            Advanced image analysis with a multi-agent AI system — including
+            optional face recognition
+          </Typography>
+        </Box>
+
+        {/* Upload Section */}
+        <Paper
+          elevation={4}
+          sx={{
+            p: { xs: 2, sm: 3, md: 4 },
+            mb: { xs: 3, sm: 5 },
+            borderRadius: 3,
+            textAlign: 'center',
+            bgcolor: '#ffffff',
           }}
         >
-          <Typography 
-            color="error" 
-            sx={{ fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1rem' } }}
-          >
-            Error: {error}
-          </Typography>
+          <ImageUpload onImageUpload={handleImageUpload} loading={loading} />
         </Paper>
-      )}
 
-      {/* Results Section */}
-      {results && (
-        <Grid container spacing={3}>
-          {/* Main analysis results (takes more space on desktop) */}
-          <Grid item xs={12} md={8}>
-            <AnalysisResults results={results} />
-          </Grid>
+        {/* Error Handling */}
+        {error && (
+          <Paper
+            elevation={2}
+            sx={{
+              p: { xs: 2, sm: 3 },
+              mb: { xs: 3, sm: 4 },
+              borderRadius: 2,
+              bgcolor: 'error.light',
+            }}
+          >
+            <Typography
+              color="error"
+              sx={{
+                fontSize: { xs: '0.9rem', sm: '1rem' },
+                textAlign: 'center',
+                fontWeight: 500,
+              }}
+            >
+              ⚠️ Error: {error}
+            </Typography>
+          </Paper>
+        )}
 
-          {/* Face recognition results (sits beside on desktop, below on mobile) */}
-          <Grid item xs={12} md={4}>
-            {results.image_analysis?.face_recognition && (
-              <Box sx={{ mt: { xs: 2, md: 0 } }}>
-                <FaceRecognitionResults 
-                  results={results.image_analysis.face_recognition}
-                  onAnonymize={handleAnonymization}
-                />
-              </Box>
-            )}
+        {/* Results Section */}
+        {results && (
+          <Grid container spacing={3}>
+            {/* Main analysis results */}
+            <Grid item xs={12} md={8}>
+              <Paper
+                elevation={3}
+                sx={{
+                  p: { xs: 2, sm: 3 },
+                  borderRadius: 3,
+                  height: '100%',
+                  bgcolor: '#ffffff',
+                }}
+              >
+                <AnalysisResults results={results} />
+              </Paper>
+            </Grid>
+
+            {/* Face recognition results */}
+            <Grid item xs={12} md={4}>
+              {results.image_analysis?.face_recognition && (
+                <Paper
+                  elevation={3}
+                  sx={{
+                    p: { xs: 2, sm: 3 },
+                    borderRadius: 3,
+                    height: '100%',
+                    bgcolor: '#ffffff',
+                  }}
+                >
+                  <FaceRecognitionResults
+                    results={results.image_analysis.face_recognition}
+                    onAnonymize={handleAnonymization}
+                  />
+                </Paper>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
-      )}
-    </Container>
+        )}
+      </Container>
+    </Box>
   );
 }
 
