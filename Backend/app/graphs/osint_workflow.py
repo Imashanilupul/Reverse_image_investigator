@@ -33,7 +33,7 @@ class OSINTWorkflow:
             model="gemini-2.5-flash",
             temperature=0,
             convert_system_message_to_human=True,
-            api_key="AIzaSyDZxIlGDZgu7jiBJJaTa_6B1-n8zMHq7Wk" or settings.GOOGLE_API_KEY
+            api_key= settings.GOOGLE_API_KEY
         )
         self.setup_agents()
         self.setup_workflow()
