@@ -1,0 +1,239 @@
+/* Global responsive styles for Image Investigator */
+
+/* Ensure smooth scrolling and proper box-sizing */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+  min-height: 100vh;
+}
+
+/* Responsive typography */
+@media (max-width: 600px) {
+  .MuiTypography-h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  .MuiTypography-h4 {
+    font-size: 1.25rem !important;
+  }
+  
+  .MuiTypography-h5 {
+    font-size: 1.125rem !important;
+  }
+  
+  .MuiTypography-h6 {
+    font-size: 1rem !important;
+  }
+}
+
+/* Responsive containers */
+@media (max-width: 600px) {
+  .MuiContainer-root {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  
+  .MuiCard-root {
+    margin-bottom: 16px !important;
+  }
+  
+  .MuiCardContent-root {
+    padding: 16px !important;
+  }
+  
+  .MuiCardContent-root:last-child {
+    padding-bottom: 16px !important;
+  }
+}
+
+/* Responsive spacing for smaller screens */
+@media (max-width: 960px) {
+  .MuiGrid-container {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  
+  .MuiGrid-item {
+    padding-left: 8px !important;
+    padding-top: 8px !important;
+  }
+}
+
+/* Custom responsive utilities */
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.responsive-max-width {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .responsive-max-width {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 960px) {
+  .responsive-max-width {
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-max-width {
+    max-width: 1200px;
+  }
+}
+
+/* Responsive stepper for mobile */
+@media (max-width: 600px) {
+  .MuiStepper-root .MuiStepLabel-label {
+    font-size: 0.7rem !important;
+  }
+  
+  .MuiStepper-root .MuiStepLabel-iconContainer {
+    padding-right: 4px !important;
+  }
+}
+
+/* Responsive tabs */
+@media (max-width: 600px) {
+  .MuiTabs-root {
+    min-height: 48px !important;
+  }
+  
+  .MuiTab-root {
+    min-height: 48px !important;
+    font-size: 0.75rem !important;
+    padding: 6px 8px !important;
+  }
+  
+  .MuiTab-root .MuiSvgIcon-root {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* Responsive buttons */
+@media (max-width: 600px) {
+  .MuiButton-root {
+    font-size: 0.8rem !important;
+    padding: 6px 12px !important;
+  }
+  
+  .MuiButton-sizeSmall {
+    font-size: 0.7rem !important;
+    padding: 4px 8px !important;
+  }
+}
+
+/* Responsive alerts */
+@media (max-width: 600px) {
+  .MuiAlert-root {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Responsive chip components */
+@media (max-width: 600px) {
+  .MuiChip-root {
+    font-size: 0.7rem !important;
+    height: 24px !important;
+  }
+  
+  .MuiChip-sizeSmall {
+    font-size: 0.65rem !important;
+    height: 20px !important;
+  }
+}
+
+/* Hide scrollbars but keep functionality */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
+}
+
+/* Responsive text overflow handling */
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 600px) {
+  .text-ellipsis {
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+/* Responsive spacing utilities */
+.spacing-xs {
+  margin: 4px !important;
+}
+
+.spacing-sm {
+  margin: 8px !important;
+}
+
+.spacing-md {
+  margin: 16px !important;
+}
+
+.spacing-lg {
+  margin: 24px !important;
+}
+
+@media (max-width: 600px) {
+  .spacing-responsive {
+    margin: 8px !important;
+  }
+}
+
+@media (min-width: 600px) {
+  .spacing-responsive {
+    margin: 16px !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .spacing-responsive {
+    margin: 24px !important;
+  }
+}

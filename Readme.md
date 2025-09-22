@@ -66,7 +66,7 @@ An advanced Image OSINT (Open Source Intelligence) Analysis Tool powered by a mu
    Create `.env` file in Backend directory:
    ```env
    GOOGLE_API_KEY=your_google_gemini_api_key
-   SERP_API_KEY=your_serper_api_key
+   SERPER_API_KEY=your_serper_api_key
    IMGBB_API_KEY=your_imgbb_api_key
    ```
 
@@ -120,7 +120,7 @@ Create a `.env` file in the Backend directory:
 GOOGLE_API_KEY=your_google_gemini_api_key
 
 # Search APIs
-SERP_API_KEY=your_serper_api_key
+SERPER_API_KEY=your_serper_api_key
 
 # Image Hosting
 IMGBB_API_KEY=your_imgbb_api_key
