@@ -55,21 +55,53 @@ const AnalysisResults = ({ results }) => {
   );
 
   return (
-    <Paper elevation={2} sx={{ p: 3, mb: 3 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <Assessment sx={{ mr: 1, color: 'primary.main' }} />
-        <Typography variant="h5">
-          Analysis Results
-        </Typography>
-        <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
-          <Timer sx={{ mr: 0.5, fontSize: 20 }} />
-          <Typography variant="body2" color="text.secondary">
-            {formatProcessingTime(results.processing_time)}
+    <Paper elevation={0} sx={{ p: { xs: 2, sm: 3 }, mb: { xs: 2, sm: 3 } }}>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          mb: { xs: 2, sm: 3 },
+          flexDirection: { xs: 'column', sm: 'row' },
+          textAlign: { xs: 'center', sm: 'left' },
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: { xs: 1, sm: 0 } }}>
+          <Assessment sx={{ mr: 1, color: 'primary.main' }} />
+          <Typography 
+            variant="h6"
+            sx={{
+              fontSize: { xs: '1.1rem', sm: '1.25rem' },
+            }}
+          >
+            Analysis Results
           </Typography>
         </Box>
+        {results.processing_time && (
+          <Box sx={{ ml: { xs: 0, sm: 'auto' }, mt: { xs: 1, sm: 0 } }}>
+            <Chip
+              icon={<Timer />}
+              label={`Processed in ${formatProcessingTime(results.processing_time)}`}
+              variant="outlined"
+              size="small"
+            />
+          </Box>
+        )}
       </Box>
 
-      <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 2 }}>
+      <Tabs 
+        value={tabValue} 
+        onChange={handleTabChange} 
+        sx={{ 
+          mb: { xs: 2, sm: 3 },
+          '& .MuiTab-root': {
+            fontSize: { xs: '0.75rem', sm: '0.875rem' },
+            minHeight: { xs: 48, sm: 64 },
+          },
+        }}
+        variant="scrollable"
+        scrollButtons="auto"
+        allowScrollButtonsMobile
+      >
         <Tab icon={<ImageIcon />} label="Image Analysis" />
         <Tab icon={<Info />} label="Metadata" />
         <Tab icon={<LocationOn />} label="Geolocation" />
@@ -78,11 +110,11 @@ const AnalysisResults = ({ results }) => {
       </Tabs>
 
       <TabPanel value={tabValue} index={0}>
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 2, sm: 3 }}>
           <Grid item xs={12} md={6}>
             <Card>
               <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" gutterBottom sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                   Objects Detected
                 </Typography>
                 {results.image_analysis.objects_detected.length > 0 ? (

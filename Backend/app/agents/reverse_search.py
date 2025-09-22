@@ -48,7 +48,7 @@ class ReverseSearchAgent:
             "url": image_url["data"]["url"]
         })
         headers = {
-            'X-API-KEY': settings.SERP_API_KEY,
+            'X-API-KEY': settings.SERPER_API_KEY,
             'Content-Type': 'application/json'
         }
         conn.request("POST", "/lens", payload, headers)

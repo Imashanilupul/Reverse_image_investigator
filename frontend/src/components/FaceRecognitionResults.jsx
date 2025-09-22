@@ -42,23 +42,38 @@ const FaceRecognitionResults = ({ results, onAnonymize }) => {
   };
 
   return (
-    <Paper elevation={2} sx={{ p: 3 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <Face sx={{ mr: 1 }} />
-        <Typography variant="h6">
-          Face Recognition Analysis
-        </Typography>
+    <Paper elevation={0} sx={{ p: { xs: 2, sm: 3 } }}>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          mb: { xs: 2, sm: 3 },
+          flexDirection: { xs: 'column', sm: 'row' },
+          textAlign: { xs: 'center', sm: 'left' },
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: { xs: 1, sm: 0 } }}>
+          <Face sx={{ mr: 1 }} />
+          <Typography 
+            variant="h6"
+            sx={{
+              fontSize: { xs: '1rem', sm: '1.25rem' },
+            }}
+          >
+            Face Recognition Analysis
+          </Typography>
+        </Box>
         <Button
           size="small"
           startIcon={showSensitiveData ? <VisibilityOff /> : <Visibility />}
           onClick={toggleSensitiveData}
-          sx={{ ml: 'auto' }}
+          sx={{ ml: { xs: 0, sm: 'auto' }, mt: { xs: 1, sm: 0 } }}
         >
           {showSensitiveData ? 'Hide' : 'Show'} Details
         </Button>
       </Box>
 
-      <Alert severity="info" sx={{ mb: 2 }}>
+      <Alert severity="info" sx={{ mb: { xs: 2, sm: 3 } }}>
         {results.total_faces} face(s) detected. Analysis performed with user consent.
       </Alert>
 
@@ -79,7 +94,7 @@ const FaceRecognitionResults = ({ results, onAnonymize }) => {
         </Accordion>
       )}
 
-      <Grid container spacing={2} sx={{ mt: 2 }}>
+      <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mt: { xs: 1, sm: 2 } }}>
         {results.faces_detected.map((face, index) => (
           <Grid item xs={12} md={6} key={face.face_id || index}>
             <Card variant="outlined">

@@ -98,21 +98,48 @@ const ImageUpload = ({ onImageUpload, loading }) => {
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 600, mx: 'auto', p: 2 }}>
-      <Card elevation={3}>
-        <CardContent>
-          <Typography variant="h5" component="h2" gutterBottom align="center">
+    <Box sx={{ width: '100%', mx: 'auto', p: { xs: 1, sm: 2 } }}>
+      <Card elevation={0} sx={{ boxShadow: 'none' }}>
+        <CardContent sx={{ p: { xs: 1, sm: 2 }, '&:last-child': { pb: { xs: 1, sm: 2 } } }}>
+          <Typography 
+            variant="h5" 
+            component="h2" 
+            gutterBottom 
+            align="center"
+            sx={{
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
+              mb: { xs: 2, sm: 3 },
+            }}
+          >
             Image Upload & Analysis
           </Typography>
 
           {/* Analysis Progress Stepper */}
           {loading && (
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h6" gutterBottom align="center">
+            <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+              <Typography 
+                variant="h6" 
+                gutterBottom 
+                align="center"
+                sx={{
+                  fontSize: { xs: '1rem', sm: '1.25rem' },
+                  mb: { xs: 2, sm: 3 },
+                }}
+              >
                 Analyzing Image...
               </Typography>
 
-              <Stepper activeStep={analysisStep} alternativeLabel>
+              <Stepper 
+                activeStep={analysisStep} 
+                alternativeLabel
+                sx={{
+                  '& .MuiStepLabel-labelContainer': {
+                    '& .MuiStepLabel-label': {
+                      fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                    },
+                  },
+                }}
+              >
                 {analysisSteps.map((label, index) => (
                   <Step key={label}>
                     <StepLabel
@@ -157,10 +184,17 @@ const ImageUpload = ({ onImageUpload, loading }) => {
               <LinearProgress
                 variant="determinate"
                 value={(analysisStep / (analysisSteps.length - 1)) * 100}
-                sx={{ mt: 2 }}
+                sx={{ mt: { xs: 2, sm: 3 } }}
               />
 
-              <Typography variant="body2" align="center" sx={{ mt: 1 }}>
+              <Typography 
+                variant="body2" 
+                align="center" 
+                sx={{ 
+                  mt: { xs: 1, sm: 2 },
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                }}
+              >
                 Step {analysisStep + 1} of {analysisSteps.length}: {analysisSteps[analysisStep]}
               </Typography>
             </Box>
@@ -174,11 +208,16 @@ const ImageUpload = ({ onImageUpload, loading }) => {
                 border: '2px dashed',
                 borderColor: isDragActive ? 'primary.main' : 'grey.300',
                 borderRadius: 2,
-                p: 4,
+                p: { xs: 3, sm: 4, md: 5 },
                 textAlign: 'center',
                 cursor: 'pointer',
                 backgroundColor: isDragActive ? 'action.hover' : 'background.paper',
                 transition: 'all 0.2s ease-in-out',
+                minHeight: { xs: 150, sm: 200 },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
                 '&:hover': {
                   borderColor: 'primary.main',
                   backgroundColor: 'action.hover'
@@ -186,18 +225,43 @@ const ImageUpload = ({ onImageUpload, loading }) => {
               }}
             >
               <input {...getInputProps()} />
-              <CloudUpload sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
+              <CloudUpload 
+                sx={{ 
+                  fontSize: { xs: 36, sm: 48, md: 56 }, 
+                  color: 'primary.main', 
+                  mb: { xs: 1, sm: 2 } 
+                }} 
+              />
 
               {isDragActive ? (
-                <Typography variant="h6" color="primary">
+                <Typography 
+                  variant="h6" 
+                  color="primary"
+                  sx={{
+                    fontSize: { xs: '1rem', sm: '1.25rem' },
+                  }}
+                >
                   Drop the image here...
                 </Typography>
               ) : (
                 <>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{
+                      fontSize: { xs: '1rem', sm: '1.25rem' },
+                    }}
+                  >
                     Drag & drop an image here, or click to select
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{
+                      fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                      maxWidth: '90%',
+                    }}
+                  >
                     Supported formats: JPEG, PNG, GIF, BMP, WebP (Max: 10MB)
                   </Typography>
                 </>
@@ -207,7 +271,7 @@ const ImageUpload = ({ onImageUpload, loading }) => {
 
           {/* Face Recognition Toggle */}
           {!loading && (
-            <Box sx={{ mt: 3 }}>
+            <Box sx={{ mt: { xs: 2, sm: 3 } }}>
               <FormControlLabel
                 control={
                   <Switch
@@ -216,9 +280,25 @@ const ImageUpload = ({ onImageUpload, loading }) => {
                     color="primary"
                   />
                 }
-                label="Enable Face Recognition Analysis"
+                label={
+                  <Typography 
+                    sx={{ 
+                      fontSize: { xs: '0.875rem', sm: '1rem' } 
+                    }}
+                  >
+                    Enable Face Recognition Analysis
+                  </Typography>
+                }
               />
-              <Typography variant="caption" display="block" color="text.secondary">
+              <Typography 
+                variant="caption" 
+                display="block" 
+                color="text.secondary"
+                sx={{
+                  fontSize: { xs: '0.75rem', sm: '0.8125rem' },
+                  mt: 0.5,
+                }}
+              >
                 Requires additional consent for privacy compliance
               </Typography>
             </Box>

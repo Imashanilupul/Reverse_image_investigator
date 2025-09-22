@@ -62,14 +62,27 @@ const GeolocationDisplay = ({ geolocation }) => {
   }
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={{ xs: 2, sm: 3 }}>
       {/* Location Information */}
       <Grid item xs={12} md={8}>
         <Card>
           <CardContent>
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+            <Box 
+              sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                mb: { xs: 1, sm: 2 } 
+              }}
+            >
               <LocationOn sx={{ mr: 1, color: 'primary.main' }} />
-              <Typography variant="h6">Location Information</Typography>
+              <Typography 
+                variant="h6"
+                sx={{
+                  fontSize: { xs: '1rem', sm: '1.25rem' },
+                }}
+              >
+                Location Information
+              </Typography>
             </Box>
 
             <List>
